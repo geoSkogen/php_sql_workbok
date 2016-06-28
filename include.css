@@ -1,0 +1,150 @@
+body {
+  background-color: snow;
+  font-family: Tahoma, sans-serif;
+}
+
+a:link {
+  color: snow;
+  text-decoration: none;
+  font-family: Tahoma, sans-serif;
+
+}
+
+a:hover {
+  color: snow;
+  text-decoration: none;
+}
+
+a:active {
+  color: snow;
+  text-decoration: none;
+}
+
+a:visited {
+  color: snow;
+  text-decoration: none;
+}
+
+div.flexOuter {
+  display: flex;
+  flex-flow: row-wrap;
+  justify-content: center;
+  padding: 0;
+}
+
+div.flexOuterFoot {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+div.flexInner {
+  flex: 2 1 30%;
+  margin: 0.75em;
+  padding: 0.75em;
+  opacity: 0.7;
+  border: 1px solid gainsboro;
+  border-radius: 2px;
+}
+
+div.flexInnerTable {
+  flex: 2 1 30%;
+  margin: 0.75em;
+  padding: 0.75em 1.75em;;
+  opacity: 0.7;
+}
+
+div.flexInnerNav {
+  flex: 1 1 30%;
+  max-width: 21%;
+  padding: 2em 0;
+}
+
+div.flexInnerSidebar {
+  flex: 1 1 30%;
+  max-width: 17%;
+  margin: 0.75em;
+  padding: 0.75em;
+  opacity: 0.7;
+  border: 1px solid gainsboro;
+  border-radius: 2px;
+}
+
+
+div.button {
+  background-color: cornflowerblue;
+  color: snow;
+  text-align: center;
+  border: none;
+  border-radius: 2px;
+  padding: 0.5em;
+  margin: 0.5em 0.5em 0 0.5em;
+  max-width: 5em;
+}
+
+div.button:hover {
+  background-color: blue;
+  color: white;
+}
+
+h3.linkage a {
+  border-radius: 2px;
+  padding: 0.5em;
+  margin: 0.5em 0.5em 0 0.5em;
+}
+
+h3.linkage a:hover {
+  background-color: cornflowerblue;
+}
+
+ header {
+  background-color: gainsboro;
+  color: white;
+  padding: 0.75em;
+  margin: 0.5em 0;
+  border-radius: 2px;
+  clear: both;
+ }
+
+ label.label {
+   float: left;
+   text-align: right;
+   clear: left;
+ }
+
+ input {
+  padding: 0.3em;
+  font-size: 14px;
+  border: 1px solid gainsboro;
+  border-radius: 2px;
+ }
+
+#submit {
+  background-color: cornflowerblue;
+  color: snow;
+  text-align: center;
+  border: none;
+  border-radius: 2px;
+  padding: 0.5em;
+  margin: 0.5em 0.5em 0 0.5em;
+  max-width: 5em;
+}
+
+#submit:hover {
+  background-color: blue;
+}
+
+h1 {
+  margin: 1em;
+ }
+
+p.error {
+  color: red;
+ }
+
+footer {
+  background-color: gainsboro;
+  color: white;
+  margin: 0.5em 0;
+  border-radius: 2px;
+ }
