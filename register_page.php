@@ -17,6 +17,7 @@
       <h2>Register Page</h2>
       <h3>PHP/SQL Development Project</h3>
       <?php
+      require('mysqli_connect.php');
       if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors = array();
         if (empty($_POST["fname"])) {
@@ -28,7 +29,7 @@
         if (empty($_POST["lname"])) {
           $errors[] = "enter last name";
         } else {
-          $ln = trim($_POST["lname"]);
+          $ln = mysqli_real_escape_string($dbcon, trim($_POST["lname"]));
         }
 
         if (empty($_POST["email"])) {
