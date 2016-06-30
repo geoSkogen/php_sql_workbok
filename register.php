@@ -10,9 +10,9 @@
 </head>
 
 <body>
-  <?php include('template_header.php'); ?>
+  <?php include('header_register.php'); ?>
   <div class="flexOuter">
-    <?php include('template_nav.php'); ?>
+    <?php include('nav.php'); ?>
     <div class="flexInner">
       <h2>Register Page</h2>
       <h3>PHP/SQL Development Project</h3>
@@ -23,7 +23,7 @@
         if (empty($_POST["fname"])) {
           $errors[] = "enter first name";
         } else {
-          $fn = trim($_POST["fname"]);
+          $fn = mysqli_real_escape_string($dbcon, trim($_POST["fname"]));
         }
 
         if (empty($_POST["lname"])) {
@@ -35,14 +35,14 @@
         if (empty($_POST["email"])) {
           $errors[] = "enter email";
         } else {
-          $e = trim($_POST["email"]);
+          $e = mysqli_real_escape_string($dbcon, trim($_POST["email"]));
         }
 
         if (!empty($_POST["psword1"])) {
           if ($_POST["psword1"] != $_POST["psword2"]) {
             $errors[] = "passwords don't match";
           } else {
-            $p = trim($_POST["psword1"]);
+            $p = mysqli_real_escape_string($dbcon, trim($_POST["psword1"]));
           }
         } else {
           $errors[] = "enter a password";
@@ -55,7 +55,7 @@
                 VALUES ('', '$fn', '$ln', '$e', SHA1('$p'), NOW())";
           $result = @mysqli_query ($dbcon, $q);
           if ($result) {
-            header ("location: register_thanks.php");
+            header ("location: thanks.php");
             exit();
           } else {
             echo '<h2>System Error</h2>
@@ -92,9 +92,9 @@
         <p><input id="submit" type="submit" name="submit" value="submit"/></p>
       </form>
     </div>
-  <?php include('template_sidebar.php'); ?>
+  <?php include('sidebar.php'); ?>
 </div>
-<?php include('template_footer.php'); ?>
+<?php include('footer.php'); ?>
 </body>
 
 <script src="#">

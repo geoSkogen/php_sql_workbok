@@ -15,17 +15,17 @@
 </head>
 
 <body>
-  <?php include('template_header.php'); ?>
+  <?php include('header_thanks.php'); ?>
   <div class="flexOuter">
-    <?php include('template_nav.php'); ?>
+    <?php include('nav.php'); ?>
     <div class="flexInner">
       <h2>Registration Successful</h2>
-      <h3>now what?</h3>
+      <h3>Now what?</h3>
       <p>Imagine this one sentence typed twice.</p>
     </div>
-  <?php include('template_sidebar.php'); ?>
+  <?php include('sidebar.php'); ?>
 </div>
-<?php include('template_footer.php'); ?>
+<?php include('footer.php'); ?>
 </body>
 <script src="#">
 </script>

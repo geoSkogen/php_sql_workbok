@@ -15,22 +15,21 @@
 </head>
 
 <body>
-  <?php include('template_header.php'); ?>
+  <?php include('header.php'); ?>
   <div class="flexOuter">
-    <?php include('template_nav.php'); ?>
+    <?php include('nav.php'); ?>
     <div class="flexInner">
-    <h2>Template Page 5</h2>
-    <h3>PHP/SQL Development Project</h3>
-    <p>Imagine this one sentence typed over and over again.
+      <h2>Template Page 5</h2>
+      <h3>PHP/SQL Development Project</h3>
+      <p>Imagine this one sentence typed over and over again.
        Imagine this one sentence typed over and over again.
        Imagine this one sentence typed over and over again.</p>
-    <p>Imagine this one sentence typed over and over again.
+      <p>Imagine this one sentence typed over and over again.
        Imagine this one sentence typed over and over again.</p>
     </div>
-  <?php include('template_sidebar.php'); ?>
-</div>
-
-<?php include('template_footer.php'); ?>
+    <?php include('sidebar.php'); ?>
+  </div>
+  <?php include('footer.php'); ?>
 </body>
 
 <script src="#">

@@ -15,9 +15,9 @@
 </head>
 
 <body>
-  <?php include('template_header.php'); ?>
+  <?php include('header_passchange.php'); ?>
   <div class="flexOuter">
-    <?php include('template_nav.php'); ?>
+    <?php include('nav.php'); ?>
     <div class="flexInner">
       <h2>Change Your Password</h2>
       <h3>PHP/SQL Development Project</h3>
@@ -89,9 +89,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         <p><input id="submit" type="submit" name="submit" value="submit"/></p>
       </form>
     </div>
-    <?php include('template_sidebar.php'); ?>
+    <?php include('sidebar.php'); ?>
   </div>
-  <?php include('template_footer.php'); ?>
+  <?php include('footer.php'); ?>
 </body>
 
 <script src="#">

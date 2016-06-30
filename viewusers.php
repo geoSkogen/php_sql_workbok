@@ -14,9 +14,9 @@
 </head>
 
 <body>
-  <?php include('template_header.php'); ?>
+  <?php include('header_thanks.php'); ?>
   <div class="flexOuter">
-    <?php include('template_nav.php'); ?>
+    <?php include('nav.php'); ?>
     <div class="flexInnerTable">
       <h2>View Users</h2>
       <h3>PHP/SQL Development Project</h3>
