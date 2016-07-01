@@ -25,6 +25,15 @@ a:visited {
   text-decoration: none;
 }
 
+a.regLink {
+  color: cornflowerblue;
+  font-weight: bold;
+}
+
+a.regLink:hover {
+  color: blue;
+}
+
 div.flexOuter {
   display: flex;
   flex-flow: row-wrap;

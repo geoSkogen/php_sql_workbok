@@ -1,3 +1,11 @@
+<?php
+session_start();
+/*if (!isset($_SESSION['user_level']) or ($_SESSION['user_level']) != 1) {
+  header("Location: login.php");
+  exit();
+}*/
+?>
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -22,20 +30,27 @@
       <h3>PHP/SQL Development Project</h3>
 <?php
 require('mysqli_connect.php');
-$q = "SELECT CONCAT(lname, ', ', fname) AS name,
-      DATE_FORMAT(registration_date, '%m %d %Y') AS regdat FROM users
+$q = "SELECT lname, fname, email,
+      DATE_FORMAT(registration_date, '%m %d %Y') AS regdat, user_id
+      FROM users
       ORDER BY registration_date ASC";
       $result = @mysqli_query ($dbcon, $q);
       if ($result) {
         echo '<table>
                <tr>
-                 <td><strong>Name</strong></td>
-                 <td><strong>Register Date</strong></td>
+                 <td><strong>Last</strong></td>
+                 <td><strong>First</strong></td>
+                 <td><strong>email</strong></td>
+                 <td><strong>Join Date</strong></td>
+                 <td><strong>User ID</strong></td>
                </tr>';
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
           echo '<tr>
-                  <td>' . $row['name'] . '&nbsp;&nbsp;</td>
+                  <td>' . $row['lname'] . '&nbsp;&nbsp;</td>
+                  <td>' . $row['fname'] . '&nbsp;&nbsp;</td>
+                  <td>' . $row['email'] . '&nbsp;&nbsp;</td>
                   <td>' . $row['regdat'] . '&nbsp;&nbsp;</td>
+                  <td>' . $row['user_id'] . '&nbsp;&nbsp;</td>
                 </tr>';
         }
       mysqli_free_result ($result);

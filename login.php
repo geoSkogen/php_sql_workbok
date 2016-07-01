@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -44,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           (email='$e' AND psword=SHA1('$p'))";
     $result = mysqli_query ($dbcon, $q);
     if (@mysqli_num_rows($result) == 1) {
-      session_start();
+
       $_SESSION = mysqli_fetch_array ($result, MYSQLI_ASSOC);
       $_SESSION['user_level'] = (int) $_SESSION['user_level'];
       $url = ($_SESSION['user_level'] == 1)? 'adminpage.php' : 'memberspage.php';
@@ -53,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       mysqli_free_result($result);
       mysqli_close($dbcon);
     } else {
-      echo '<p class="error">invalid username&emdash;password combo</p>
+      echo '<p class="error">authentication failed &mdash; invalid username &/or password</p>
             <p>new user? register
               <a href="register.php" class="regLink">here</a></p>';
     }
