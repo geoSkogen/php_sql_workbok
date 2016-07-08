@@ -3,6 +3,9 @@ body {
   font-family: Tahoma, sans-serif;
 }
 
+p {
+  text-align: center;
+}
 a:link {
   color: snow;
   text-decoration: none;

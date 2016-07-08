@@ -1,11 +1,10 @@
 <?php
 session_start();
-/*if (!isset($_SESSION['user_level']) or ($_SESSION['user_level']) != 1) {
+/*if ($_SESSION['user_level'] != 1) {
   header("Location: login.php");
   exit();
 }*/
 ?>
-
 <!DOCTYPE html>
 
 <html lang="en">
@@ -15,6 +14,7 @@ session_start();
 <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
 
 <title>
+Admin Page
 </title>
 
 <link rel="stylesheet" href="include.css"/>
@@ -22,17 +22,18 @@ session_start();
 </head>
 
 <body>
-  <?php include('header_thanks.php'); ?>
+  <?php include('header_admin.php'); ?>
   <div class="flexOuter">
     <?php include('nav.php'); ?>
-    <div class="flexInnerTable">
-      <h2>View Users</h2>
+    <div class="flexInner">
+      <h2>Search Results</h2>
       <h3>PHP/SQL Development Project</h3>
 <?php
 require('mysqli_connect.php');
-$q = "SELECT lname, fname, email,
-      DATE_FORMAT(registration_date, '%m %d %Y') AS regdat, user_id
-      FROM users
+$fname = mysqli_real_escape_string($dbcon, trim($_POST['fname']));
+$lname = mysqli_real_escape_string($dbcon, trim($_POST['lname']));
+$q = "SELECT lname, fname, email, DATE_FORMAT(registration_date, '%M %d, %Y')
+      AS regdat, user_id FROM users WHERE lname='$lname' AND fname='$fname'
       ORDER BY registration_date ASC";
 $result = @mysqli_query ($dbcon, $q);
 if ($result) {
@@ -65,7 +66,12 @@ if ($result) {
   echo '<p class="error">could not retrieve user records</p>';
   echo '<p>' . mysqli_error($dbcon) . '<br/><br/>Query: ' . $q . '</p>';
 }
+$q = "SELECT COUNT(user_id) FROM users";
+$result = @mysqli_query ($dbcon, $q);
+$row = @mysqli_fetch_array ($result, MYSQLI_NUM);
+$members = $row[0];
 mysqli_close($dbcon);
+echo "<p>Total Membership: $members</p>";
 ?>
     </div>
     <?php include('sidebar.php'); ?>
