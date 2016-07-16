@@ -124,6 +124,10 @@ h3.linkage a:hover {
    clear: left;
  }
 
+form.hideMe {
+  display:none;
+}
+
  input {
   float: left;
   padding: 0.3em;

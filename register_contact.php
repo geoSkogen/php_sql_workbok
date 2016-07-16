@@ -3,6 +3,7 @@
 <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
 
 <title>
+  register
 </title>
 
 <link rel="stylesheet" href="include.css"/>
@@ -18,6 +19,7 @@
       <h3>PHP/SQL Development Project</h3>
       <?php
       require('mysqli_connect_postal.php');
+      $paid = 'NO';
       if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors = array();
         if (!empty($_POST["title"])) {
@@ -42,6 +44,12 @@
           $errors[] = "enter email";
         } else {
           $e = mysqli_real_escape_string($dbcon, trim($_POST["email"]));
+        }
+
+        if (empty($_POST["uname"])) {
+          $errors[] = "enter last name";
+        } else {
+          $uname = mysqli_real_escape_string($dbcon, trim($_POST["uname"]));
         }
 
         if (!empty($_POST["psword1"])) {
@@ -75,7 +83,7 @@
         if (empty($_POST["city"])) {
           $errors[] = "enter city";
         } else {
-          $city = mysqli_real_escape_string($dbcon, trim($_POST["ciy"]));
+          $city = mysqli_real_escape_string($dbcon, trim($_POST["city"]));
         }
 
         if (empty($_POST["state"])) {
@@ -97,16 +105,16 @@
         }
 
         if (empty($errors)) {
-          require ('mysqli_connect_postal.php');
+        //  require ('mysqli_connect_postal.php');
           $q = "SELECT user_id FROM users WHERE email='e' ";
           $result = mysqli_query ($dbcon, $q);
           if (mysqli_num_rows($result) == 0) {
-            $q = "INSERT INTO users (user_id, title, fname, lname, email, psword,
+            $q = "INSERT INTO users (user_id, title, fname, lname, email, password,
                   registration_date, uname, class, addr_line1, addr_line2, city,
-                  state, pcode, phone, phone, paid)
+                  state, pcode, phone, paid)
                   VALUES ('', '$title', '$fname', '$lname', '$e', SHA1('$p'), NOW(),
                   '$uname', '$class', '$addr_line1', '$addr_line2', '$city',
-                  '$state', '$pcode', '$phone', $paid )";
+                  '$state', '$pcode', '$phone', '$paid' )";
             $result = @mysqli_query ($dbcon, $q);
             if ($result) {
               mysqli_close($dbcon);
@@ -138,10 +146,10 @@
            <select name="class">
              <option value="30" <?php if (isset($_POST['class']) AND
                ($_POST['class'] == 30)) echo ' selected="selected"';?>>
-               1 year pro&mdash; $30</option>
+               1 year pro &mdash; $30</option>
              <option value="125" <?php if (isset($_POST['class']) AND
                ($_POST['class'] == 125)) echo ' selected="selected"';?>>
-               5 year pro&mdash; $125</option>
+               5 year pro &mdash; $125</option>
              <option value="5" <?php if (isset($_POST['class']) AND
                ($_POST['class'] == 5)) echo ' selected="selected"';?>>
                armed forces 1 year pro &mdash; $5</option>

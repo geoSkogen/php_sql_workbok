@@ -1,3 +1,11 @@
+<?php
+session_start();
+?>
+
+<!DOCTYPE html>
+
+<html lang="en">
+
 <head>
 
 <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
@@ -49,10 +57,11 @@
         }
 
         if (empty($errors)) {
+          $ul = 0;
           require ('mysqli_connect.php');
           $q = "INSERT INTO users (user_id, fname, lname, email, psword,
-            registration_date)
-                VALUES ('', '$fn', '$ln', '$e', SHA1('$p'), NOW())";
+            registration_date, user_level)
+                VALUES ('', '$fn', '$ln', '$e', SHA1('$p'), NOW(), '$ul' )";
           $result = @mysqli_query ($dbcon, $q);
           if ($result) {
             header ("location: thanks.php");

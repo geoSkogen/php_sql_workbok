@@ -7,7 +7,7 @@
 <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
 
 <title>
-  change your password
+  change password
 </title>
 
 <link rel="stylesheet" href="include.css"/>
@@ -23,7 +23,7 @@
       <h3>PHP/SQL Development Project</h3>
 <?php
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-  require ('mysqli_connect.php');
+  require ('mysqli_connect_postal.php');
   $errors = array();
 
   if (empty($_POST['email'])) {
@@ -49,16 +49,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   }
 
   if (empty($errors)) {
-    $q = "SELECT user_id FROM users WHERE (email='$e' AND psword=SHA1('$p'))";
+    $q = "SELECT user_id FROM users WHERE (email='$e' AND password=SHA1('$p'))";
     $result = @mysqli_query($dbcon, $q);
     $num = @mysqli_num_rows($result);
     if ($num == 1) {
       $row = mysqli_fetch_array($result, MYSQLI_NUM);
-      $q = "UPDATE users SET psword=SHA1('$np') WHERE user_id=$row[0]";
+      $q = "UPDATE users SET password=SHA1('$np') WHERE user_id=$row[0]";
       $result = @mysqli_query($dbcon, $q);
       echo '<h2>Password Change</h2>
             <h3>Your password has been updated.</h3>';
-      include('template_footer.php');
       exit();
     } else {
       echo '<h2>System Error</h2>
@@ -76,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   mysqli_close($dbcon);
 }
 ?>
-      <form action="register_change_password.php" method="post">
+      <form action="<?php echo htmlspecialchars(trim($_SERVER['PHP_SELF'])); ?>" method="post">
         <p><label class="label" for="email">email</label>
            <input id="email" type="text" name="email" size="30" maxlength="60"
             value="<?php if (isset($POST["email"])) echo $POST["email"]; ?>"/></p>

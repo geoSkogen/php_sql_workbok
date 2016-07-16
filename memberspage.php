@@ -1,9 +1,8 @@
 <?php
 session_start();
-/*if (!isset($_SESSION['user_level']) or ($_SESSION['user_level']) != 0) {
-  header("Location: login.php");
-  exit();
-}*/
+//if (empty($_SESSION['user_level']) || $_SESSION['user_level'] != 0) {
+//  header('Location: index.php');
+//}
 ?>
 <!DOCTYPE html>
 
@@ -24,12 +23,12 @@ session_start();
 <body>
   <?php include('header_members.php'); ?>
   <div class="flexOuter">
-    <?php include('nav.php'); ?>
+    <?php include('nav.php');?>
     <div class="flexInner">
       <h2>Members Page</h2>
       <h3>PHP/SQL Development Project</h3>
       <p>Imagine this lone sentence.</p>
-      <p>Image members-only content.</p>
+      <p>Imagine members-only content.</p>
     </div>
     <?php include('sidebar.php'); ?>
   </div>
