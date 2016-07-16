@@ -33,7 +33,7 @@ require('mysqli_connect_postal.php');
 $fname = mysqli_real_escape_string($dbcon, trim($_POST['fname']));
 $lname = mysqli_real_escape_string($dbcon, trim($_POST['lname']));
 $q = "SELECT lname, fname, email, DATE_FORMAT(registration_date, '%M %d, %Y')
-      AS regdat, user_id FROM users WHERE lname='$lname' AND fname='$fname'
+      AS regdat, user_id, class, paid FROM users WHERE lname='$lname' AND fname='$fname'
       ORDER BY registration_date ASC";
 $result = @mysqli_query ($dbcon, $q);
 if ($result) {
@@ -41,11 +41,13 @@ if ($result) {
           <tr>
             <td><strong>edit</strong></td>
             <td><strong>delete</strong></td>
-            <td><strong>Last</strong></td>
-            <td><strong>First</strong></td>
+            <td><strong>last</strong></td>
+            <td><strong>first</strong></td>
             <td><strong>email</strong></td>
-            <td><strong>Join Date</strong></td>
-            <td><strong>User ID</strong></td>
+            <td><strong>join date</strong></td>
+            <td><strong>user ID</strong></td>
+            <td><strong>member level</strong></td>
+            <td><strong>paid?</strong></td>
            </tr>';
   while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
      echo '<tr>
@@ -58,6 +60,8 @@ if ($result) {
              <td>' . $row['email'] . '&nbsp;&nbsp;</td>
              <td>' . $row['regdat'] . '&nbsp;&nbsp;</td>
              <td>' . $row['user_id'] . '&nbsp;&nbsp;</td>
+             <td>' . $row['class'] . '&nbsp;&nbsp;</td>
+             <td>' . $row['paid'] . '&nbsp;&nbsp;</td>
            </tr>';
   }
   echo '</table>';
@@ -71,7 +75,7 @@ $result = @mysqli_query ($dbcon, $q);
 $row = @mysqli_fetch_array ($result, MYSQLI_NUM);
 $members = $row[0];
 mysqli_close($dbcon);
-echo "<p>Total Membership: $members</p>";
+echo "<p>total members: $members</p>";
 ?>
     </div>
     <?php include('sidebar.php'); ?>

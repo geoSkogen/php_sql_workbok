@@ -99,6 +99,10 @@ div.button:hover {
   color: white;
 }
 
+div.centerMe {
+  text-align: center;
+}
+
 h3.linkage a {
   border-radius: 2px;
   padding: 0.5em;

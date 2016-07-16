@@ -27,6 +27,9 @@ session_start();
     <div class="flexInner">
       <h2>Members Page</h2>
       <h3>PHP/SQL Development Project</h3>
+      <div class="centerMe">
+        <img src="hotdog.jpg" alt="hotdog" width="300" height="300"/>
+      </div>
       <p>Imagine this lone sentence.</p>
       <p>Imagine members-only content.</p>
     </div>

@@ -23,7 +23,7 @@ session_start();
 </head>
 
 <body>
-  <?php include('header_thanks.php'); ?>
+  <?php include('header_admin.php'); ?>
   <div class="flexOuter">
     <?php include('nav.php'); ?>
     <div class="flexInnerTable">
@@ -62,8 +62,8 @@ if ($result) {
           <tr>
             <td><strong>edit</strong></td>
             <td><strong>delete</strong></td>
-            <td><strong>Last</strong></td>
-            <td><strong>First</strong></td>
+            <td><strong>last</strong></td>
+            <td><strong>first</strong></td>
             <td><strong>email</strong></td>
             <td><strong>join date</strong></td>
             <td><strong>member level</strong></td>

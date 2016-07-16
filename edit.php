@@ -14,7 +14,7 @@ session_start();
 <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
 
 <title>
-edit 
+edit
 </title>
 
 <link rel="stylesheet" href="include.css"/>
@@ -38,7 +38,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
   exit();
 }
 
-require ('mysqli_connect.php');
+require ('mysqli_connect_postal.php');
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
   $errors = array();
@@ -50,16 +50,26 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   if (empty($_POST['lname'])) {
     $errors[] = 'enter a last name';
   } else {
-    $fn = mysqli_real_escape_string($dbcon, trim($_POST['lname']));
+    $ln = mysqli_real_escape_string($dbcon, trim($_POST['lname']));
   }
   if (empty($_POST['email'])) {
     $errors[] = 'enter an email';
   } else {
-    $fn = mysqli_real_escape_string($dbcon, trim($_POST['email']));
+    $e = mysqli_real_escape_string($dbcon, trim($_POST['email']));
+  }
+  if (empty($_POST['class'])) {
+    $errors[] = 'enter a membership level';
+  } else {
+    $class = mysqli_real_escape_string($dbcon, trim($_POST['class']));
+  }
+  if (empty($_POST['paid'])) {
+    $errors[] = 'enter paypal status';
+  } else {
+    $paid = mysqli_real_escape_string($dbcon, trim($_POST['paid']));
   }
   if (empty($errors)) {
-    $q = "UPDATE users SET fname='$fn', lname='$ln', email='$e'
-          WHERE user_id=$id LIMIT 1";
+    $q = "UPDATE users SET fname='$fn', lname='$ln', email='$e', class='$class',
+          paid='$paid' WHERE user_id=$id LIMIT 1";
     $result = @mysqli_query ($dbcon, $q);
     if (mysqli_affected_rows($dbcon) == 1) {
       echo '<h3>user profile updated</h3>';
@@ -73,13 +83,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         echo " - $msg<br/>\n";
       }
     echo '</p><p>try again</p>';
-  }
+  }  
 }
-$q = "SELECT fname, lname, email, FROM users WHERE user_id=$id";
+$q = "SELECT fname, lname, email, class, paid FROM users WHERE user_id=$id";
 $result = @mysqli_query ($dbcon, $q);
 if (mysqli_num_rows($result) == 1) {
   $row = mysqli_fetch_array($result, MYSQLI_NUM);
-  echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '"
+    echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '"
          method="post"/>
           <p><label for="fname">first name</label>
             <input type="text" name="fname" size="30" maxlength="30"
@@ -90,6 +100,13 @@ if (mysqli_num_rows($result) == 1) {
           <p><label for="email">email</label>
             <input type="text" name="email"  size="30" maxlength="30"
               value="' . $row[2] . '"/></p>
+          <p><label for="class">membership level</label>
+            <input type="text" name="class"  size="30" maxlength="30"
+              value="' . $row[3] . '"/></p>
+          <p><label for="paid">paypal status</label>
+             <input type="text" name="paid"  size="30" maxlength="30"
+              value="' . $row[4] . '"/></p>
+          <p><input id="submit" type="submit" value="submit"/></p>
         </form>';
 } else {
   echo '<p class="error">This page has been accessed in error</p>';
