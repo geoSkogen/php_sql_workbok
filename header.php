@@ -3,7 +3,7 @@
     <h1>PHP/SQL Workbook</h1>
     <div class="flexInnerHead">
       <div class="button"><a href ="login.php">login</a></div>
-      <div class="button"><a href ="register_contact.php">register</a></div>
+      <div class="button"><a href ="register_contact_secure.php">register</a></div>
     </div>
   </div>
 </header>
