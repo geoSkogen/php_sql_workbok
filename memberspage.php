@@ -26,7 +26,6 @@ session_start();
     <?php include('nav.php');?>
     <div class="flexInner">
       <h2>Members Page</h2>
-      <h3>PHP/SQL Development Project</h3>
       <div class="centerMe">
         <img src="hotdog.jpg" alt="hotdog" width="300" height="300"/>
       </div>

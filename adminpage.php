@@ -27,7 +27,6 @@ admin page
     <?php include('nav.php'); ?>
     <div class="flexInner">
       <h2>Admin</h2>
-      <h3>PHP/SQL Development Project</h3>
       <div class="centerMe">
         <img src="pigeonbunny.jpg" alt="pigeonbunny" width="300" height="321"/>
       </div>

@@ -23,46 +23,76 @@
       if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors = array();
         if (!empty($_POST["title"])) {
-          $title = mysqli_real_escape_string($dbcon, trim($_POST["title"]));
+          $un_title = trim($_POST["title"]);
+          $title = mysqli_real_escape_string($dbcon, strip_tags($un_title));
         } else {
           $title = NULL;
         }
 
-        if (empty($_POST["fname"])) {
-          $errors[] = "enter first name";
-        } else {
-          $fname = mysqli_real_escape_string($dbcon, trim($_POST["fname"]));
-        }
-
-        if (empty($_POST["lname"])) {
-          $errors[] = "enter last name";
-        } else {
-          $lname = mysqli_real_escape_string($dbcon, trim($_POST["lname"]));
-        }
-
-        if (empty($_POST["email"])) {
-          $errors[] = "enter email";
-        } else {
-          $e = mysqli_real_escape_string($dbcon, trim($_POST["email"]));
-          if (!filter_var($e, FILTER_VALIDATE_EMAIL)) {
-            $errors[] = "invalid email format";
-          }
-        }
-
-        if (empty($_POST["uname"])) {
-          $errors[] = "enter last name";
-        } else {
-          $uname = mysqli_real_escape_string($dbcon, trim($_POST["uname"]));
-        }
-
-        if (!empty($_POST["psword1"])) {
-          if ($_POST["psword1"] != $_POST["psword2"]) {
-            $errors[] = "passwords don't match";
+        if (!empty($_POST["fname"])) {
+          $un_fname = trim($_POST["fname"]);
+          $fname = mysqli_real_escape_string($dbcon, strip_tags($un_fname));
+          $len = mb_strlen($fname, 'utf-8');
+          if ($len < 1) {
+            $errors[] = "enter first name";
           } else {
-            $p = mysqli_real_escape_string($dbcon, trim($_POST["psword1"]));
+            if (!preg_match("/^([a-zA-Z\-\']+[[:space:]]?)+$/",$fname)) {
+              $errors[] = "enter a valid first name";
+            }
           }
         } else {
+          $errors[] = "enter first name";
+        }
+
+        if (!empty($_POST["lname"])) {
+          $un_lname = trim($_POST["lname"]);
+          $lname = mysqli_real_escape_string($dbcon, strip_tags($un_lname));
+          $len = mb_strlen($lname, 'utf-8');
+          if ($len < 1) {
+            $errors[] = "enter last name";
+          } else {
+            if (!preg_match("/^([a-zA-Z\-\']+[[:space:]]?)+$/",$lname)) {
+              $errors[] = "enter a valid last name";
+            }
+          }
+        } else {
+          $errors[] = "enter a last name";
+        }
+
+        $e = FALSE;
+        if (empty($_POST["email"])) {
+          $errors[] = "enter an email address";
+        }
+        if (filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL)) {
+          $e = mysqli_real_escape_string($dbcon, (trim($_POST['email'])));
+        } else {
+          $errors[] = "enter a valid email address";
+        }
+
+        if (!empty($_POST["uname"])) {
+          $un_uname = trim($_POST["uname"]);
+          $uname = mysqli_real_escape_string($dbcon, strip_tags($un_uname));
+          $len = mb_strlen($uname, 'utf-8');
+          if ($len < 1) {
+            $errors[] = "enter your user name";
+          }
+        } else {
+          $errors[] = "enter your user name";
+        }
+
+        if (empty($_POST["psword1"])) {
           $errors[] = "enter a password";
+        } else {
+          $p1 = trim($_POST["psword1"]);
+          if (!preg_match('/^\w{8,12}$/', $p1)) {
+            $errors[] = "invalid password format";
+          } else {
+            if ($_POST["psword1"] == $_POST["psword2"]) {
+            $p = mysqli_real_escape_string($dbcon, trim($p1));
+            } else {
+            $errors[] = "passwords don't match";
+            }
+          }
         }
 
         if (empty($_POST["class"])) {
@@ -71,38 +101,76 @@
           $class = trim($_POST["class"]);
         }
 
-        if (empty($_POST["addr_line1"])) {
-          $errors[] = "enter address";
+        if (!empty($_POST["addr_line1"])) {
+          $un_add1 = trim($_POST["addr_line1"]);
+          $addr_line1 = mysqli_real_escape_string($dbcon, strip_tags($un_add1));
+          $len = mb_strlen($addr_line1, 'utf-8');
+          if ($len < 1) {
+            $errors[] = "enter a street address";
+          } else {
+            if (!preg_match("/^[0-9]+([[:space:]][[:alnum:]]+\.*)+$/", $addr_line1)) {
+              $errors[] = "enter a valid street address";
+            }
+          }
         } else {
-          $addr_line1 = mysqli_real_escape_string($dbcon, trim($_POST["addr_line1"]));
+          $errors[] = "enter a street address";
         }
 
         if (!empty($_POST["addr_line2"])) {
-          $addr_line2 = mysqli_real_escape_string($dbcon, trim($_POST["addr_line2"]));
+          $un_add2 = trim($_POST["addr_line2"]);
+          $addr_line2 = mysqli_real_escape_string($dbcon, strip_tags($un_add2));
         } else {
           $addr_line2 = NULL;
         }
 
-        if (empty($_POST["city"])) {
-          $errors[] = "enter city";
+        if (!empty($_POST["city"])) {
+          $un_city = trim($_POST["city"]);
+          $city = mysqli_real_escape_string($dbcon, strip_tags($un_city));
+          $len = mb_strlen($city, 'utf-8');
+          if ($len < 1) {
+            $errors[] = "enter a city";
+          } else {
+            if ((!preg_match("/^([a-zA-Z\-\']+[[:space:]]?)+$/",$city))) {
+              $errors[] = "enter a valid city name";
+            }
+          }
         } else {
-          $city = mysqli_real_escape_string($dbcon, trim($_POST["city"]));
+          $errors[] = "enter a city";
         }
 
-        if (empty($_POST["state"])) {
-          $errors[] = "enter state";
+        if (!empty($_POST["state"])) {
+          $un_state = trim($_POST["state"]);
+          $state = mysqli_real_escape_string($dbcon, strip_tags($un_state));
+          $len = mb_strlen($state, 'utf-8');
+          if ($len < 1) {
+            $errors[] = "enter a state";
+          } else {
+            if (!preg_match("/^[A-Z]{2}$/",$state)) {
+              $errors[] = "enter a valid state code";
+            }
+          }
         } else {
-          $state = mysqli_real_escape_string($dbcon, trim($_POST["state"]));
+          $errors[] = "enter a state";
         }
 
-        if (empty($_POST["pcode"])) {
-          $errors[] = "enter postal code";
+        if (!empty($_POST["pcode"])) {
+          $un_pcode = trim($_POST["pcode"]);
+          $pcode = mysqli_real_escape_string($dbcon, strip_tags($un_pcode));
+          $len = mb_strlen($pcode, 'utf-8');
+          if ($len < 1) {
+            $errors[] = "enter a postal code";
+          } else {
+            if (!preg_match("/^([0-9]{5}){1}(-[0-9]{4})?$/",$pcode)){
+              $errors[] = "enter a valid postal code";
+            }
+          }
         } else {
-          $pcode = mysqli_real_escape_string($dbcon, trim($_POST["pcode"]));
+          $errors[] = "enter a postal code";
         }
 
         if (!empty($_POST["phone"])) {
-          $phone = mysqli_real_escape_string($dbcon, trim($_POST["phone"]));
+          $un_phone = trim($_POST["phone"]);
+          $phone = mysqli_real_escape_string($dbcon, strip_tags($un_phone));
         } else {
           $phone = NULL;
         }

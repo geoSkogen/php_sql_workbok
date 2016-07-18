@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   mysqli_close($dbcon);
 }
 ?>
-      <form action="login.php" method="post">
+      <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
         <p><label class="label" for="email">email</label>
           <input id="email" type="text" name="email" size="30" maxlength="60"/></p>
         <p><label class="label" for="psword">password</label>
