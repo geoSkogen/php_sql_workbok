@@ -100,7 +100,7 @@ if ($pages > 1) {
   $current_page = ($start/$pagerows) + 1;
   if ($current_page != 1) {
     echo '<a class="regLink" href="viewusers_contact.php?s=' . ($start - $pagerows) . '&p=' .
-    $pages . '">previous</a>';
+    $pages . '">previous&nbsp;&nbsp;&nbsp;&nbsp;</a>';
   }
   if ($current_page != $pages) {
     echo '<a class="regLink" href="viewusers_contact.php?s=' . ($start + $pagerows) . '&p=' .

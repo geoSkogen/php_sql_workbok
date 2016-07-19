@@ -29,15 +29,14 @@ edit
       <h2>Edit a Record</h2>
       <h3>PHP/SQL Development Project</h3>
 <?php
-if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+if ($_SERVER['REQUEST_METHOD']=="GET")/*(isset($_GET['id']) && is_numeric($_GET['id']))*/ {
   $id = $_GET['id'];
-} elseif (isset($_POST['id']) && is_numeric($_POST['id'])) {
+} elseif ($_SERVER['REQUEST_METHOD']=="POST")/*(isset($_POST['id']) && is_numeric($_POST['id']))*/ {
   $id = $_POST['id'];
 } else {
-  echo '<p class="error">This page has been accessed in error.</p>';
+  echo '<p class="error">This page has been accessed in error--getpost.</p>';
   exit();
 }
-
 require ('mysqli_connect_postal.php');
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -69,21 +68,21 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   }
   if (empty($errors)) {
     $q = "UPDATE users SET fname='$fn', lname='$ln', email='$e', class='$class',
-          paid='$paid' WHERE user_id=$id LIMIT 1";
+          paid='$paid' WHERE user_id='$id' LIMIT 1";
     $result = @mysqli_query ($dbcon, $q);
-    if (mysqli_affected_rows($dbcon) == 1) {
+/*    if (mysqli_affected_rows($dbcon) == 1) {*/
       echo '<h3>user profile updated</h3>';
-    } else {
+/*    } else {
       echo '<p class="error">system error: profile update failed</p>';
-      echo '<p>' . mysqli_error($dbcon). '<br/>Query: ' . $p . '</p>';
-    }
+      echo '<p>' . mysqli_error($dbcon). '<br/>Query: ' . $q . '</p>';
+    }*/
   } else {
     echo '<p class="error">The following errors occurred:<br/>';
       foreach($errors as $msg) {
         echo " - $msg<br/>\n";
       }
     echo '</p><p>try again</p>';
-  }  
+  }
 }
 $q = "SELECT fname, lname, email, class, paid FROM users WHERE user_id=$id";
 $result = @mysqli_query ($dbcon, $q);
@@ -106,10 +105,12 @@ if (mysqli_num_rows($result) == 1) {
           <p><label for="paid">paypal status</label>
              <input type="text" name="paid"  size="30" maxlength="30"
               value="' . $row[4] . '"/></p>
+          <p><input type="hidden" name="id" value=" ' . $id . ' "/>
           <p><input id="submit" type="submit" value="submit"/></p>
+
         </form>';
 } else {
-  echo '<p class="error">This page has been accessed in error</p>';
+  echo '<p class="error">This page has been accessed in error--result</p>';
 }
 mysqli_close($dbcon);
 ?>

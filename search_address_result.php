@@ -32,7 +32,8 @@ Admin Page
 require('mysqli_connect_postal.php');
 $fname = mysqli_real_escape_string($dbcon, trim($_POST['fname']));
 $lname = mysqli_real_escape_string($dbcon, trim($_POST['lname']));
-$q = "SELECT user_id, lname, fname,  addr_line1, addr_line2, city, state, pcode
+$q = "SELECT user_id, lname, fname,  addr_line1, addr_line2,
+      city, state, pcode, phone
       FROM users WHERE lname='$lname' AND fname='$fname' ";
 $result = @mysqli_query ($dbcon, $q);
 if ($result) {
@@ -42,11 +43,12 @@ if ($result) {
             <td><strong>delete</strong></td>
             <td><strong>last</strong></td>
             <td><strong>first</strong></td>
-            <td><strong>street address 1</strong></td>
-            <td><strong>street address 2</strong></td>
+            <td><strong>street address&nbsp;&nbsp; 1</strong></td>
+            <td><strong>street address&nbsp;&nbsp; 2</strong></td>
             <td><strong>city</strong></td>
-            <td><strong>state</strong></td>
-            <td><strong>pcode</strong></td>
+            <td><strong>state</strong>&nbsp;&nbsp;</td>
+            <td><strong>zip</strong></td>
+            <td><strong>phone</strong></td>
            </tr>';
   while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
      echo '<tr>
@@ -59,8 +61,9 @@ if ($result) {
              <td>' . $row['addr_line1'] . '&nbsp;&nbsp;</td>
              <td>' . $row['addr_line2'] . '&nbsp;&nbsp;</td>
              <td>' . $row['city'] . '&nbsp;&nbsp;</td>
-             <td>' . $row['state'] . '&nbsp;&nbsp;&nbsp;&nbsp;</td>
+             <td>' . $row['state'] . '&nbsp;&nbsp;</td>
              <td>' . $row['pcode'] . '&nbsp;&nbsp;</td>
+             <td>' . $row['phone'] . '&nbsp;&nbsp;</td>
            </tr>';
   }
   echo '</table>';

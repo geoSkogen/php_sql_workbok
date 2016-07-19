@@ -21,7 +21,8 @@ session_start();
 </head>
 
 <body>
-  <?php include('header_members.php'); ?>
+  <?php
+  include('header_members.php'); ?>
   <div class="flexOuter">
     <?php include('nav.php');?>
     <div class="flexInner">

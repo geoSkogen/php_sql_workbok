@@ -50,8 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (@mysqli_num_rows($result) == 1) {
 
       $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-      $_SESSION['user_level'] = (int) $row['user_level'];
-      $url = ($_SESSION['user_level'] === 1)? 'adminpage.php' : 'memberspage.php';
+      $level = (int) $row['user_level'];
+      $url = ($level === 1)? 'adminpage.php' :
+                             'memberspage.php' ;
       header('Location: ' . $url);
       mysqli_free_result($result);
       mysqli_close($dbcon);

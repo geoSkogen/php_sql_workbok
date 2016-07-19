@@ -1,3 +1,15 @@
+<?php
+session_start();
+/*if (!isset($_SESSION['user_level']) or ($_SESSION['user_level']) != 1) {
+  header("Location: login.php");
+  exit();
+}*/
+?>
+
+<!DOCTYPE html>
+
+<html lang="en">
+
 <head>
 
 <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
@@ -15,7 +27,7 @@
   <div class="flexOuter">
     <?php include('nav.php'); ?>
     <div class="flexInner">
-      <h2>Register Page</h2>
+      <h2>Registeration Page</h2>
       <h3>PHP/SQL Development Project</h3>
       <?php
       require('mysqli_connect_postal.php');
@@ -170,14 +182,15 @@
 
         if (!empty($_POST["phone"])) {
           $un_phone = trim($_POST["phone"]);
-          $phone = mysqli_real_escape_string($dbcon, strip_tags($un_phone));
+          $repl_phone = mysqli_real_escape_string($dbcon, strip_tags($un_phone));
+          $phone = preg_replace('/\D+/', '', ($repl_phone));
         } else {
           $phone = NULL;
         }
 
         if (empty($errors)) {
         //  require ('mysqli_connect_postal.php');
-          $q = "SELECT user_id FROM users WHERE email='e' ";
+          $q = "SELECT user_id FROM users WHERE email='$e' ";
           $result = mysqli_query ($dbcon, $q);
           if (mysqli_num_rows($result) == 0) {
             $q = "INSERT INTO users (user_id, title, fname, lname, email, password,
