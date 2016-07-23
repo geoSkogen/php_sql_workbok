@@ -6,6 +6,11 @@ body {
 p {
   text-align: center;
 }
+
+p.box {
+  text-align: justify;
+}
+
 a:link {
   color: snow;
   text-decoration: none;
