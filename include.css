@@ -5,6 +5,7 @@ body {
 
 p {
   text-align: center;
+  line-height: 150%;
 }
 
 p.box {
