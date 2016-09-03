@@ -8,6 +8,11 @@ p {
   line-height: 150%;
 }
 
+p.noCenter {
+  text-align: justify;
+  line-height: 150%;
+}
+
 p.box {
   text-align: justify;
 }
